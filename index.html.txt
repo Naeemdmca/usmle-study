@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My USMLE Study</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>My USMLE Study</h1>
+    <div id="add-card" style="display:none;">
+        <h2>Add New Card</h2>
+        <input type="text" id="front-text" placeholder="Front Text">
+        <input type="text" id="back-text" placeholder="Back Text">
+        <input type="text" id="image-url" placeholder="Image URL (optional)">
+        <button onclick="addCard()">Add Card</button>
+    </div>
+    <div id="study-mode">
+        <h2>Study Mode</h2>
+        <div id="flashcard">
+            <p id="front">Front</p>
+            <img id="card-image" style="display:none;" src="">
+            <button onclick="showBack()">Show Back</button>
+            <p id="back" style="display:none;">Back</p>
+        </div>
+        <button onclick="nextCard()">Next Card</button>
+    </div>
+    <button onclick="toggleAddCard()">Add New Card</button>
+    <button onclick="startStudy()">Start Study</button>
+    <script src="script.js"></script>
+</body>
+</html>
