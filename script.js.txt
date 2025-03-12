@@ -1,0 +1,68 @@
+let cards = [];
+let currentCard = 0;
+
+// Load cards from cards.json
+fetch("cards.json")
+    .then(response => response.json())
+    .then(data => {
+        cards = data;
+        if (cards.length > 0) {
+            loadCard();
+        }
+    })
+    .catch(error => console.error("Error loading cards:", error));
+
+function addCard() {
+    let frontText = document.getElementById("front-text").value;
+    let backText = document.getElementById("back-text").value;
+    let imageUrl = document.getElementById("image-url").value;
+    if (frontText && backText) {
+        cards.push({
+            front: frontText,
+            back: backText,
+            image: imageUrl
+        });
+        alert("Card added! Download cards.json, update, and upload to GitHub.");
+        document.getElementById("front-text").value = "";
+        document.getElementById("back-text").value = "";
+        document.getElementById("image-url").value = "";
+    } else {
+        alert("Please fill front and back text.");
+    }
+}
+
+function toggleAddCard() {
+    document.getElementById("add-card").style.display = "block";
+    document.getElementById("study-mode").style.display = "none";
+}
+
+function startStudy() {
+    document.getElementById("add-card").style.display = "none";
+    document.getElementById("study-mode").style.display = "block";
+    loadCard();
+}
+
+function loadCard() {
+    if (cards.length === 0) {
+        alert("No cards to study.");
+        return;
+    }
+    document.getElementById("front").innerText = cards[currentCard].front;
+    if (cards[currentCard].image) {
+        document.getElementById("card-image").src = cards[currentCard].image;
+        document.getElementById("card-image").style.display = "block";
+    } else {
+        document.getElementById("card-image").style.display = "none";
+    }
+    document.getElementById("back").innerText = cards[currentCard].back;
+    document.getElementById("back").style.display = "none";
+}
+
+function showBack() {
+    document.getElementById("back").style.display = "block";
+}
+
+function nextCard() {
+    currentCard = (currentCard + 1) % cards.length;
+    loadCard();
+}
